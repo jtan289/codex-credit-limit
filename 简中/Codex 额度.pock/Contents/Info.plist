@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>zh_CN</string>
+    <key>CFBundleDisplayName</key>
+    <string>Codex 额度</string>
+    <key>CFBundleExecutable</key>
+    <string>CodexQuota</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.local.codex-quota-pock</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>CodexQuota</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.5.2</string>
+    <key>CFBundleVersion</key>
+    <string>8</string>
+    <key>CFBundleSupportedPlatforms</key>
+    <array>
+        <string>MacOSX</string>
+    </array>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.15</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSPrincipalClass</key>
+    <string>CodexQuotaWidget</string>
+    <key>PKWidgetAuthor</key>
+    <string>Local</string>
+    <key>PKWidgetPreferenceClass</key>
+    <string>CodexQuotaPreferences</string>
+</dict>
+</plist>
