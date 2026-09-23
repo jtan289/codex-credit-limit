@@ -1,58 +1,56 @@
 # Codex Credit Limit for Pock
 
-在 MacBook Touch Bar 上显示 Codex 的 5 小时与每周用量额度、重置时间，以及当前运行中的 Codex 任务数量。
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+Display Codex five-hour and weekly usage limits, reset times, and the number of currently running Codex tasks on the MacBook Touch Bar.
 
 ![Widget preview](en/Codex%20Credit%20Limit.pock/Contents/Resources/widget-preview.png)
 
-## 功能
+## Features
 
-- 显示 5 小时和每周用量窗口
-- 显示剩余额度或已用额度
-- 显示额度重置时间
-- 显示当前运行中的 Codex 任务数量
-- 提供简体中文和英文两个 Pock 小组件
-- 数据只从本机已登录的 Codex App/CLI 读取，不包含 API 密钥
+- Shows the five-hour and weekly usage windows
+- Displays either remaining or used quota
+- Shows the reset time for each usage window
+- Displays the number of currently running Codex tasks
+- Includes both English and Simplified Chinese Pock widgets
+- Reads data only from the locally authenticated Codex App or CLI; no API key is included
 
-## 系统要求
+## Requirements
 
-- macOS 10.15 或更高版本
-- Apple Silicon Mac（仓库内的预编译组件为 `arm64`）
-- 已安装并登录 Codex App 或 Codex CLI
+- macOS 10.15 or later
+- An Apple Silicon Mac (the bundled native components target `arm64`)
+- Codex App or Codex CLI installed and signed in
 - Pock
 
-## 安装
+## Installation
 
-1. 下载或克隆本仓库。
-2. 选择需要的语言版本：
-   - `简中/Codex 额度.pock`
+1. Download or clone this repository.
+2. Choose your preferred language bundle:
    - `en/Codex Credit Limit.pock`
-3. 双击 `.pock` 文件，并在 Pock 中完成安装。
+   - `简中/Codex 额度.pock`
+3. Double-click the `.pock` file and complete the installation in Pock.
 
-## 工作方式
+## How it works
 
-小组件通过本机 Codex App Server 读取账户的用量窗口，并将最近一次成功结果缓存在：
+The widget reads the account usage windows through the local Codex App Server and caches the latest successful result in:
 
 ```text
 ~/Library/Caches/CodexTouchBar/
 ```
 
-它还会读取本机 `~/.codex/sessions` 中的任务生命周期记录，以计算正在运行的顶层任务数量。所有处理均在本机完成。
+It also reads task lifecycle records from the local `~/.codex/sessions` directory to count active top-level tasks. All processing stays on the local machine.
 
-## 仓库结构
+## Repository structure
 
 ```text
 .
-├── 简中/
-│   └── Codex 额度.pock/
-└── en/
-    └── Codex Credit Limit.pock/
+├── en/
+│   └── Codex Credit Limit.pock/
+└── 简中/
+    └── Codex 额度.pock/
 ```
 
-每个小组件包内包含 Python 后端、预编译的 `arm64` 渲染器和 Pock bundle，以及图标和预览图。
-
-## English
-
-This Pock widget shows Codex five-hour and weekly usage limits, reset times, and the number of currently running Codex tasks on the MacBook Touch Bar. Both Simplified Chinese and English bundles are included. The bundled native components target Apple Silicon Macs.
+Each widget bundle includes the Python backend, precompiled `arm64` renderer and Pock bundle, icon, and preview image.
 
 ## Author
 
