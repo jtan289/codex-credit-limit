@@ -31,7 +31,7 @@
 	<key>NSPrincipalClass</key>
 	<string>CodexCreditLimitWidget</string>
 	<key>PKWidgetAuthor</key>
-	<string>Local</string>
+	<string>jtan289 (github.com/jtan289)</string>
 	<key>PKWidgetPreferenceClass</key>
 	<string>CodexCreditLimitPreferences</string>
 </dict>

@@ -3,6 +3,10 @@
 
 from __future__ import annotations
 
+__author__ = "jtan289"
+__copyright__ = "Copyright (c) 2026 jtan289"
+__license__ = "MIT"
+
 import datetime as dt
 import fcntl
 import json

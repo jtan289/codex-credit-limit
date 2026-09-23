@@ -54,6 +54,10 @@
 
 This Pock widget shows Codex five-hour and weekly usage limits, reset times, and the number of currently running Codex tasks on the MacBook Touch Bar. Both Simplified Chinese and English bundles are included. The bundled native components target Apple Silicon Macs.
 
+## Author
+
+[jtan289](https://github.com/jtan289)
+
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE).
