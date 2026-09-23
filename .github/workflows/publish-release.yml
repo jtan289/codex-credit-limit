@@ -1,0 +1,76 @@
+name: Publish release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to publish
+        required: true
+        default: v1.5.2
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: macos-latest
+    steps:
+      - name: Check out the tagged version
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+
+      - name: Verify bundle versions and signatures
+        env:
+          TAG_NAME: ${{ inputs.tag }}
+        run: |
+          version="${TAG_NAME#v}"
+          test "$(plutil -extract CFBundleShortVersionString raw 'en/Codex Credit Limit.pock/Contents/Info.plist')" = "$version"
+          test "$(plutil -extract CFBundleShortVersionString raw '简中/Codex 额度.pock/Contents/Info.plist')" = "$version"
+          codesign --verify --deep --strict 'en/Codex Credit Limit.pock'
+          codesign --verify --deep --strict '简中/Codex 额度.pock'
+
+      - name: Build English and Chinese archives
+        env:
+          TAG_NAME: ${{ inputs.tag }}
+        run: |
+          mkdir -p dist
+          version="${TAG_NAME#v}"
+          COPYFILE_DISABLE=1 ditto -c -k --keepParent --norsrc --noextattr \
+            'en/Codex Credit Limit.pock' \
+            "dist/Codex-Credit-Limit-v${version}-en.zip"
+          COPYFILE_DISABLE=1 ditto -c -k --keepParent --norsrc --noextattr \
+            '简中/Codex 额度.pock' \
+            "dist/Codex-Credit-Limit-v${version}-zh-CN.zip"
+          shasum -a 256 dist/*.zip > dist/SHA256SUMS.txt
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ inputs.tag }}
+        run: |
+          version="${TAG_NAME#v}"
+          checksum_en="$(awk '/-en\.zip$/ {print $1}' dist/SHA256SUMS.txt)"
+          checksum_zh="$(awk '/-zh-CN\.zip$/ {print $1}' dist/SHA256SUMS.txt)"
+          printf '%s\n' \
+            '## Downloads / 下载' \
+            '' \
+            "- **English:** `Codex-Credit-Limit-v${version}-en.zip`" \
+            "- **简体中文：** `Codex-Credit-Limit-v${version}-zh-CN.zip`" \
+            '' \
+            'Extract the ZIP and double-click the `.pock` file to install it in Pock.' \
+            '' \
+            '解压 ZIP 后，双击 `.pock` 文件即可在 Pock 中安装。' \
+            '' \
+            '## SHA-256' \
+            '' \
+            '```text' \
+            "${checksum_en}  Codex-Credit-Limit-v${version}-en.zip" \
+            "${checksum_zh}  Codex-Credit-Limit-v${version}-zh-CN.zip" \
+            '```' > release-notes.md
+          gh release create "$TAG_NAME" \
+            "dist/Codex-Credit-Limit-v${version}-en.zip" \
+            "dist/Codex-Credit-Limit-v${version}-zh-CN.zip" \
+            --verify-tag \
+            --title "Codex Credit Limit for Pock ${TAG_NAME}" \
+            --notes-file release-notes.md
